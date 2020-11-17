@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>manual.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="instalaci%C3%B3n-de-drupal-9">Instalación de Drupal 9</h1>
+<h4 id="ra%C3%BAl-morales-ruiz">Raúl Morales Ruiz</h4>
+<hr>
+<h1 id="introducci%C3%B3n">Introducción</h1>
+<p>Drupal es un sistema de gestión de contenidos o CMS libre,​ modular, multipropósito y muy configurable.</p>
+<p>Permite publicar artículos, imágenes, archivos y también ofrece la posibilidad de otros servicios añadidos como foros, encuestas, votaciones, blogs, administración de usuarios y permisos</p>
+<h1 id="requisitos">Requisitos</h1>
+<p>Para instalar Drupal usaremos dos contenedores Docker:</p>
+<ul>
+<li>
+<p>Drupal.</p>
+</li>
+<li>
+<p>MySQL.</p>
+</li>
+</ul>
+<hr>
+<h1 id="instalaci%C3%B3n-de-contenedor-docker-drupal">Instalación de contenedor Docker Drupal</h1>
+<p>Drupal utiliza el puerto 80 internamente para funcionar.</p>
+<p>En este caso hemos indicado que el puerto expuesto en nuestra máquina es el 8089.</p>
+<pre><code>    docker run --name drupal -p 8089:80 -d drupal
+</code></pre>
+<h1 id="instalaci%C3%B3n-de-contenedor-docker-mysql">Instalación de contenedor Docker MySQL</h1>
+<pre><code>    $ docker run -d --name some-mysql --network some-network \
+        -e MYSQL_DATABASE=drupal \
+        -e MYSQL_USER=user \
+        -e MYSQL_PASSWORD=password \
+        -e MYSQL_ROOT_PASSWORD=password \
+    mysql:5.7
+</code></pre>
+<hr>
+<h1 id="creaci%C3%B3n-de-base-de-datos">Creación de base de datos</h1>
+<p>Conectamos al servicio con el cliente mysql y un usuario administrador:</p>
+<blockquote>
+<p>~$ mysql -u root -p</p>
+</blockquote>
+<p>Creamos la base de datos:</p>
+<blockquote>
+<p>create database drupal charset utf8mb4 collate utf8mb4_unicode_ci;</p>
+</blockquote>
+<p>Si usamos MariaDB o MySQL 5 creamos el usuario de forma trivial:</p>
+<blockquote>
+<p>create user drupal@localhost identified by 'XXXXXXXX';</p>
+</blockquote>
+<p>En caso de tratarse de MySQL 8 es importante asegurarse de usar el plugin de conexión adecuado:</p>
+<blockquote>
+<p>create user drupal@localhost identified with mysql_native_password by 'XXXXXXXX';</p>
+</blockquote>
+<p>Concedemos los privilegios al usuario sobre la base de datos:</p>
+<blockquote>
+<p>grant all privileges on drupal.* to drupal@localhost;</p>
+</blockquote>
+<p>Y cerramos la conexión:</p>
+<blockquote>
+<p>exit</p>
+</blockquote>
+<hr>
+<h1 id="configuraci%C3%B3n-de-drupal">Configuración de Drupal</h1>
+<ol>
+<li>
+<p>Elegir idioma</p>
+<p>En la página inicial del instalador web elegiremos el idioma de la instalación.</p>
+</li>
+</ol>
+<p><img src="images/instalacion/1.jpg" alt="Idioma"></p>
+<ol start="2">
+<li>
+<p>Seleccionar perfil de instalación</p>
+<p>Habitualmente el perfil recomendado es el estándar, aunque si sabes lo que quieres puedes elegir otro.</p>
+</li>
+</ol>
+<p><img src="images/instalacion/2.jpg" alt="Perfil"></p>
+<ol start="3">
+<li>
+<p>Configuración de la base de datos</p>
+<p>El siguiente paso es la comprobación de requisitos para la instalación</p>
+</li>
+</ol>
+<p><img src="images/instalacion/3.jpg" alt="Base de datos"></p>
+<ol start="4">
+<li>
+<p>Instalación</p>
+<p>Comienza el proceso de instalación:</p>
+</li>
+</ol>
+<p><img src="images/instalacion/4.jpg" alt="Instalación"></p>
+<ol start="5">
+<li>
+<p>Traducciones</p>
+<p>Se instalarán las traducciones de forma automática.</p>
+</li>
+</ol>
+<p><img src="images/instalacion/5.jpg" alt="Traducciones"></p>
+<ol start="6">
+<li>
+<p>Configurar sitio</p>
+<p>Tras la inicialización de la base de datos, instalación de módulos, traducciones, etc. se pedirá la información básica de identificación del nuevo sitio web y los datos del usuario administrador:</p>
+</li>
+</ol>
+<p><img src="images/instalacion/6.png" alt="Configurar sitio"></p>
+<ol start="7">
+<li>
+<p>Acceso a Drupal</p>
+<p>Finalmente se presentará el nuevo sitio Drupal 9 con sesión iniciada automáticamente para el usuario administrador.</p>
+</li>
+</ol>
+<p><img src="images/instalacion/7.jpg" alt="Acceso a Drupal"></p>
+<hr>
+<h1 id="creaci%C3%B3n-de-contenido">Creación de contenido</h1>
+<ul>
+<li>
+<p>Una vez dentro del portal de Drupal, accedemos a la sección &quot;Contenido&quot;</p>
+</li>
+<li>
+<p>Pulsamos el botón azul &quot;Añadir contenido&quot;</p>
+</li>
+<li>
+<p>Elegimos el tipo de contenido</p>
+<ul>
+<li>Artículo</li>
+<li>Página básica</li>
+</ul>
+</li>
+<li>
+<p>En este caso, se muestra la creación de un artículo:</p>
+<p><img src="images/articulo/1.png" alt="Creación de artículo"></p>
+</li>
+<li>
+<p>Tras crear el artículo, vemos el resultado:</p>
+<p><img src="images/articulo/2.png" alt="Visualización de artículo"></p>
+</li>
+</ul>
+<hr>
+<h1 id="visualizaci%C3%B3n-de-contenido">Visualización de contenido</h1>
+<p>Accedemos con un usuario sin permisos de administrador.</p>
+<p>De esta forma vemos que el aspecto de la web es diferente.</p>
+<p><img src="images/articulo/3.png" alt="Usuario. Artículo"></p>
+
+</body>
+</html>

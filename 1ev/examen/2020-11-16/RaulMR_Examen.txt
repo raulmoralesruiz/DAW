@@ -1,0 +1,94 @@
+Raúl Morales Ruiz
+
+
+1. Explica en detalle el proceso que se sigue desde que el usuario introduce una URL en el navegador hasta que la página es mostrada en el navegador
+	El usuario accede al navegador web.
+	Después se introduce una dirección URL para acceder al sitio web.
+	El navegador realiza una petición al sitio web solicitando el contenido.
+	El sitio web se comunica con el servidor DNS correspondiente para traducir la IP.
+	El sitio web responde al navegador, pudiendo mostrar el contenido, o cualquier otro tipo de respuesta.
+	El navegador muestra el contenido del sitio web.
+
+
+2. DNS. Pon 5 ejemplos de TLD genéricos.
+	.org
+	.com
+	.edu
+	.net
+	.gov
+
+
+3. WIRESHARK ¿Qué es? ¿Para qué se utiliza
+Es un programa utilizado para analizar paquetes y protocolos.
+Por ejemplo, podemos visualizar el contenido de los paquetes al acceder a una web.
+También podemos analizar el contenido de paquetes al realizar ping a otros equipos.
+
+
+4. 
+HTTP: 80
+HTTPS: 443
+
+
+5.
+La resolución directa se encarga de traducir un nombre de dominio (google.es) a una dirección IP (8.8.8.8).
+La resolución inversa se encarga de traducir una dirección IP (8.8.8.8) a un nombre de dominio (google.es).
+
+
+6.
+200: Indica que la respuesta es correcta.
+404: Indica que el recurso no se ha encontrado.
+503: Indica que ha habido un error en la parte del servidor para resolver la petición.
+
+
+7.
+* Web estática:
+- Tecnologías: HTML, CSS, Javascript
+Este tipo de web funciona mostrando el contenido al usuario sin interactuar con un servidor.
+
+* Web dinámica: 
+- Tecnologías: PHP, JSP
+Este tipo de web realiza consultas o gestiones para mostrar diferentes resultados.
+
+
+8.
+- Existen 13 servidores raíz.
+
+- Estos servidores se encargan de almacenar toda la información DNS de internet.
+Además cada uno de los servidores es una copia de seguridad.
+
+- A, B, C, D, E, F, G, H, I, J, K, L, M
+
+
+9.
+- Se instala el servidor DNS.
+utilizando usuario administrador: apt install bind9
+
+- Se configuran las zonas directas en el fichero /etc/bind/named.conf.local
+
+- Se configuran las zonas inveras en el fichero correspondiente, por ejemplo: /etc/bind/db.192
+
+- El archivo de configuración principal es: /etc/bind/named.conf
+
+- Una vez realizada la configuración, se reinicia el servidor:
+systemctl restart bind9
+
+
+
+10.
+- Se instala el servidor web.
+utilizando usuario administrador: apt install apache2
+
+- Se crea la ubicación del sitio web en /var/www/
+por ejemplo: /var/www/sitio
+
+- Se crea el fichero de configuración del sitio en:
+/etc/apache2/sites-available/sitio.conf
+
+- Se crea el fichero de configuración del sitio en:
+/etc/apache2/sites-enabled/sitio.conf
+
+- Se habilita el sitio
+a2ensite sitio.conf
+
+- Se reinicia el servidor web para aplicar los cambios
+systemctl restart apache2
