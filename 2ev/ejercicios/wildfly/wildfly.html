@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>wildfly.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="wildfly">Wildfly</h1>
+<h4 id="ra%C3%BAl-morales-ruiz">Raúl Morales Ruiz</h4>
+<hr>
+<h2 id="introducci%C3%B3n">Introducción</h2>
+<p>El objetivo de este manual es realizar la instalación de Wildfly.</p>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>Tener instalado <a href="https://www.docker.com/">Docker</a>.</li>
+</ul>
+<h2 id="instalaci%C3%B3n">Instalación</h2>
+<p>A continuación se definen los pasos a seguir para descargar e instalar la imagen Docker de Wildfly.</p>
+<h3 id="ejecutardescargar-imagen-docker">Ejecutar/descargar imagen Docker</h3>
+<p>Ejecutamos el siguiente comando en la terminal:</p>
+<blockquote>
+<p>$ docker run -p 8084:8080 -p 9990:9990 --name=wildfly -it jboss/wildfly /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0</p>
+</blockquote>
+<ul>
+<li>
+<p>El puerto por defecto para la interfaz web es el 8080, en este caso se ha sustituido por el 8084.</p>
+</li>
+<li>
+<p>El puerto por defecto para la consola de administración es el 9990.</p>
+</li>
+</ul>
+<h3 id="comprobar-finalizaci%C3%B3n-de-la-instalaci%C3%B3n">Comprobar finalización de la instalación</h3>
+<p>Una vez hemos ejecutado el comando, podemos ver que en el proceso automático ejecutado en la terminal aparecen bastantes líneas con información.</p>
+<p>Para comprobar que la instalación ha terminado, debemos revisar que la última línea sea parecida a esta:</p>
+<blockquote>
+<p>[org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://0.0.0.0:9990</p>
+</blockquote>
+<h3 id="comprobar-acceso">Comprobar acceso</h3>
+<p>Una vez ha finalizado la instalación, podemos comprobar que tenemos acceso a la interfaz web desde cualquier navegador.</p>
+<p><img src="img/1_portada.png" alt="portada"></p>
+<h3 id="acceso-a-la-consola-de-administraci%C3%B3n">Acceso a la consola de administración</h3>
+<p>Después de comprobar que tenemos acceso a la interfaz web, podemos intentar acceder a la consola de administración.</p>
+<ul>
+<li>Pulsamos el enlace <a href="http://localhost:8084/console">Administration Console</a></li>
+</ul>
+<p>Como vemos en la captura, todavía no tenemos acceso a la consola porque no existe ningún usuario configurado.</p>
+<p><img src="img/2_error.png" alt="error"></p>
+<h4 id="configurar-acceso-a-la-consola">Configurar acceso a la consola</h4>
+<p>Como podemos ver en la captura, se indica que debemos ejecutar el siguiente comando para configurar el acceso a la consola:</p>
+<blockquote>
+<p>add-user.sh</p>
+</blockquote>
+<p>Como hemos realizado la instalación mediante Docker, debemos ejecutar este comando dentro del contenedor:</p>
+<ul>
+<li>
+<p>Abrimos una nueva ventana o pestaña de la terminal</p>
+</li>
+<li>
+<p>Ejecutamos el siguiente comando, para acceder al contenedor:</p>
+<blockquote>
+<p>$ docker exec -it wildfly bash</p>
+</blockquote>
+</li>
+<li>
+<p>Comprobamos que el prompt ha cambiado por alguno similar a este:</p>
+<pre><code>  [jboss@3ac140d73304 ~]$ 
+</code></pre>
+</li>
+<li>
+<p>Ejecutamos el siguiente comando, para crear el acceso del usuario:</p>
+<blockquote>
+<p>[jboss@3ac140d73304 ~]$ wildfly/bin/add-user.sh admin Admin --silent</p>
+</blockquote>
+<pre><code>  En este caso el usuario indicado es &quot;admin&quot; y la contraseña es &quot;Admin&quot;, podemos indicar las credenciales que queramos.
+</code></pre>
+</li>
+</ul>
+<h4 id="acceso-a-la-consola-ahora-s%C3%AD">Acceso a la consola (ahora sí)</h4>
+<p>Después de configurar el acceso correspondiente, podemos acceder a la consola de administración.</p>
+<ul>
+<li>
+<p>Pulsamos el enlace <a href="http://localhost:8084/console">Administration Console</a></p>
+<p><img src="img/3_consola.png" alt="acceso_consola"></p>
+</li>
+<li>
+<p>Tras pulsar el enlace, debe aparecer una ventana donde introduciremos el usuario y contraseña del paso anterior:</p>
+<p><img src="img/4_consola.png" alt="login"></p>
+</li>
+</ul>
+<h3 id="consola-de-administraci%C3%B3n">Consola de administración</h3>
+<p>Por último, después de haber accedido a la consola, podemos acceder a los distintos apartados de la misma.</p>
+<p>En la siguiente captura podemos ver algunos como ejemplo:</p>
+<p><img src="img/5_consola.png" alt="consola"></p>
+
+</body>
+</html>
